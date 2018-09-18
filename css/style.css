@@ -11,12 +11,24 @@ body {
   min-width: 1122px;
   min-height: 1750px;
 }
-.visually-hidden {
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%; /*Использовать можно в других проектах*/
+  height: auto;
+}
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
   position: absolute;
   border: 0;
   padding: 0;
   width: 1px;
   height: 1px;
+  margin: -1px;
+  white-space: nowrap;
+  clip-path: inset(100%);
   clip: rect(0, 0, 0, 0);
   overflow: hidden;
 }
@@ -33,10 +45,10 @@ body {
   margin-bottom: 50px;
   background: #000000;
 }
-a {
-  text-decoration: none;
-}
 .button {
+  display: inline-block;
+  margin-right: 16px;
+  padding: 10px 30px;
   text-align: center;
   color: #ffffff;
   vertical-align: middle;
@@ -91,9 +103,11 @@ a {
 }
 .site-navigation {
   width: 620px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .user-navigation {
-  width: 140px;
+  max-width: 140px;
 }
 .inner-page .user-navigation {
   margin-left: auto;
@@ -106,6 +120,8 @@ a {
 }
 .site-navigation a,
 .user-navigation a {
+  display: block;
+  padding: 25px 20px;
   color: #ffffff;
 }
 .site-navigation a:hover,
@@ -113,6 +129,25 @@ a {
 .user-navigation a:hover,
 .user-navigation a:focus {
   background-color: #242424;
+}
+.user-navigation .login-link {
+  position: relative;
+  padding-left: 50px;
+}
+.login-link::before {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 24px;
+  width: 16px;
+  height: 18px;
+  background: url("../img/login.svg") no-repeat 0 0;
+  opacity: 0.3;
+}
+.login-link:hover::before,
+.login-link:focus::before,
+.login-link:active::before {
+  opacity: 1;
 }
 .features {
   margin-bottom: 80px;
@@ -128,9 +163,25 @@ a {
   width: 300px;
   text-align: center;
 }
+.features-item p {
+  margin: 0 10px;
+}
 .features-item h3 {
+  position: relative;
   font-size: 30px;
   line-height: 42px;
+  margin: 0 0 60px;
+}
+.features-item h3::after {
+  position: absolute;
+  content: "";
+  bottom: -30px;
+  left: 50%;
+  margin-left: -10px;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  transform: rotate(45deg);
 }
 .index-columns {
   display: flex;
@@ -138,9 +189,14 @@ a {
   padding: 50px 80px;
   margin-bottom: 35px;
   color: #000000;
-  background: #f8f5f2 url("../img/pattern-light.jpg") repeat 0 0;
+  background-color: #f8f5f2;
+  background-image: url("../img/line.png"),
+                    url("../img/pattern-light.jpg");
+  background-position: center, 0 0;
+  background-repeat: no-repeat, repeat;
 }
 .index-columns h2 {
+  margin: 0 0 25px;
   font-size: 30px;
   line-height: 42px;
 }
@@ -153,30 +209,89 @@ a {
 .contacts {
   width: 380px;
 }
+.contacts p {
+  margin: 0 0 25px;
+}
 .appointment {
   width: 300px;
+}
+.appointment-info {
+  margin: 0 0 15px;
 }
 .page-title {
   margin: 0 0 15px;
   padding: 0;
 }
 .news-list {
+  margin: 0 0 25px;
+  padding: 0;
   list-style: none;
+}
+.news-list p {
+  margin: 0;
+}
+.news-item {
+  margin-bottom: 25px;
 }
 .news-item time {
   text-transform: none;
 }
+.gallery-container {
+  position: relative;
+  height: 260px;
+}
 .gallery-content {
+  height: 164px;
+  margin: 0;
   background: #cccccc;
   border: 7px solid #ffffff;
 }
+.gallery-button {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  width: 140px;
+  margin: 0;
+}
+.gallery-button-back {
+  left: 0;
+}
+.gallery-button-next {
+  right: 0;
+}
+.gallery-content img {
+  width: 286px;
+  height: 164px;
+}
+.appointment-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.appointment-item {
+  width: 140px;
+  margin: 0 0 10px;
+}
+.appointment-item label {
+  display: block;
+  margin-bottom: 9px;
+  margin-left: 15px;
+}
 .appointment-item input {
+  box-sizing: border-box;
+  width: 140px;
+  padding: 8px 15px 7px;
   font: inherit;
   background: transparent;
   border: 2px solid #000000;
 }
 .appointment-item input:focus {
   border-color: #663d15;
+}
+.appointment .button {
+  width: 100%;
+  margin-top: 10px;
+  margin-right: 0;
 }
 .page-title {
   font-size: 30px;
@@ -216,6 +331,7 @@ a {
   color: #663d15;
 }
 .filter-input:disabled + label {
+  cursor: default;
   color: #000000;
   opacity: 0.5;
 }
@@ -268,9 +384,8 @@ a {
 }
 .pagination-list {
   padding: 0;
-  margin: 0;
   list-style: none;
-  margin-bottom: 25px;
+  margin: 0 0 25px;
 }
 .pagination-item a {
   color: #ffffff;
@@ -295,6 +410,10 @@ a {
   width: 460px;
 }
 .product-photo-preview {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
   list-style: none;
 }
 .product-photo-preview li {
@@ -351,16 +470,48 @@ a {
   width: 145px;
   text-align: center;
 }
+.footer-social b {
+  display: block;
+  margin-bottom: 15px;
+}
 .footer-social ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 141px;
   list-style: none;
+  margin: 0 auto;
+  padding: 0;
 }
 .social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
   color: #ffffff;
+  background: #000000;
+}
+.social-button:hover,
+.social-button:focus {
+  background: #ffffff;
+}
+.social-button:hover path,
+.social-button:focus path {
+  fill: #000000;
 }
 .footer-copyright {
   width: 150px;
   text-align: center;
   margin: 0 0 0 auto;
+}
+.footer-copyright b {
+  display: block;
+  margin-bottom: 15px;
+}
+.footer-copyright .button {
+  display: block;
+  margin-right: 0;
 }
 .footer-copyright .button:hover,
 .footer-copyright .button:focus {
@@ -391,9 +542,16 @@ a {
 .restore:focus {
   text-decoration: none;
 }
-
-
-
+.facilities {
+  width: 250px;
+}
+.price {
+  width: 460px;
+}
+.price-columns {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 
